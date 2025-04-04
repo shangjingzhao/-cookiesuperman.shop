@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5NF8CYSTQ8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5NF8CYSTQ8');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Cookie Monster - A delicious cookie-collecting adventure game. Match cookies, set high scores, and satisfy your sweet tooth!">
+    <meta name="keywords" content="cookies, cookie monster, online game, puzzle game, match game, cookie game">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cookiesuperman.shop/">
+    <title>Cookie Monster | Delicious Cookie Adventure Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                fontFamily: {
+                    'sans': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                },
+                extend: {
+                    colors: {
+                        'apple-gray': {
+                            50: '#F5F5F7',
+                            100: '#E5E5E5',
+                            200: '#D2D2D7',
+                            300: '#A1A1A6',
+                            400: '#86868B',
+                            600: '#494949',
+                            800: '#1D1D1F',
+                            900: '#000000',
+                        },
+                        'apple-blue': '#0071E3',
+                        'apple-red': '#FA3434',
+                        'cookie-brown': {
+                            100: '#F5EBD8',
+                            200: '#E6D0AC',
+                            300: '#D1AF76',
+                            400: '#B08744',
+                            500: '#8D6B2B',
+                            600: '#6F4E1C',
+                            700: '#523813',
+                            800: '#36240C',
+                            900: '#1D1206',
+                        }
+                    },
+                    textShadow: {
+                        'default': '0 2px 5px rgba(0, 0, 0, 0.2)',
+                        'lg': '0 2px 10px rgba(0, 0, 0, 0.3)',
+                    },
+                    boxShadow: {
+                        'cookie': '0 10px 25px -5px rgba(177, 136, 69, 0.2), 0 10px 10px -5px rgba(177, 136, 69, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Apple-style scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5F5F7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #86868B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #494949;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Cookie background */
+        body {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d1af76' fill-opacity='0.15'%3E%3Ccircle cx='25' cy='25' r='15'/%3E%3Ccircle cx='75' cy='75' r='15'/%3E%3Ccircle cx='75' cy='25' r='10'/%3E%3Ccircle cx='25' cy='75' r='10'/%3E%3Ccircle cx='50' cy='50' r='12'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+            position: relative;
+            z-index: 0;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23b08744' fill-opacity='0.05'%3E%3Cpath d='M36,34 L40,30 L42,32 L36,38 L24,26 L26,24 z'/%3E%3Ccircle cx='20' cy='20' r='4'/%3E%3Ccircle cx='40' cy='40' r='4'/%3E%3Ccircle cx='40' cy='20' r='3'/%3E%3Ccircle cx='20' cy='40' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Cookie decorations */
+        .cookie {
+            position: absolute;
+            background-color: #D1AF76;
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.1);
+            z-index: -1;
+            opacity: 0.15;
+        }
+        
+        .cookie::before {
+            content: '';
+            position: absolute;
+            background-color: #6F4E1C;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        
+        .cookie-decoration {
+            position: fixed;
+            z-index: -1;
+        }
+        
+        .cookie-decoration:nth-child(1) {
+            top: 15%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            opacity: 0.15;
+        }
+        
+        .cookie-decoration:nth-child(2) {
+            top: 75%;
+            left: 90%;
+            width: 150px;
+            height: 150px;
+            opacity: 0.12;
+        }
+        
+        .cookie-decoration:nth-child(3) {
+            top: 65%;
+            left: 3%;
+            width: 80px;
+            height: 80px;
+            opacity: 0.1;
+        }
+        
+        .cookie-decoration:nth-child(4) {
+            top: 10%;
+            left: 85%;
+            width: 120px;
+            height: 120px;
+            opacity: 0.08;
+        }
+        
+        /* Apple-style animations */
+        .hero-text {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(177, 136, 69, 0.15);
+        }
+        
+        .feature-icon {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .hover-lift:hover .feature-icon {
+            transform: scale(1.15);
+            background-color: rgba(209, 175, 118, 0.4);
+        }
+
+        /* Cookie crumb animation */
+        .cookie-crumb {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #D1AF76;
+            border-radius: 50%;
+            animation: float 8s linear infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Glowing effect for buttons */
+        .btn-glow {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .btn-glow:hover::after {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+        
+        /* Game frame styling */
+        .game-frame {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .game-frame:hover {
+            transform: scale(1.01);
+        }
+        
+        /* Custom card styling */
+        .cookie-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cookie-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #D1AF76, #8D6B2B);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .cookie-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* Additional styles */
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .text-shadow-lg {
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Gradient text */
+        .text-gradient {
+            background: linear-gradient(to right, #B08744, #D1AF76);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        /* Image filter for the game frame */
+        .cookie-filter {
+            filter: drop-shadow(0 10px 20px rgba(177, 136, 69, 0.25));
+        }
+    </style>
+</head>
+<body class="bg-apple-gray-50 min-h-screen font-sans">
+    <!-- Large cookie decorations -->
+    <div class="cookie-decoration rounded-full bg-cookie-brown-300"></div>
+    <div class="cookie-decoration rounded-full bg-cookie-brown-400"></div>
+    <div class="cookie-decoration rounded-full bg-cookie-brown-200"></div>
+    <div class="cookie-decoration rounded-full bg-cookie-brown-300"></div>
+
+    <!-- Cookie crumb animations -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="cookie-crumb" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="cookie-crumb" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="cookie-crumb" style="left: 35%; animation-delay: 3.5s;"></div>
+        <div class="cookie-crumb" style="left: 50%; animation-delay: 1s;"></div>
+        <div class="cookie-crumb" style="left: 65%; animation-delay: 4s;"></div>
+        <div class="cookie-crumb" style="left: 80%; animation-delay: 2.5s;"></div>
+        <div class="cookie-crumb" style="left: 90%; animation-delay: 3s;"></div>
+        <div class="cookie-crumb" style="left: 5%; animation-delay: 4.5s;"></div>
+        <div class="cookie-crumb" style="left: 25%; animation-delay: 1.5s;"></div>
+        <div class="cookie-crumb" style="left: 75%; animation-delay: 3.2s;"></div>
+        <div class="cookie-crumb" style="left: 95%; animation-delay: 0.7s;"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-apple-gray-800/90 backdrop-blur-md text-white sticky top-0 z-50">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center py-3 px-4 md:px-6">
+                <a href="#" class="text-xl font-semibold text-white">Cookie Monster</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#game" class="text-white hover:text-apple-gray-200 transition-colors text-sm">Play Now</a>
+                    <a href="#about" class="text-white hover:text-apple-gray-200 transition-colors text-sm">About</a>
+                    <a href="#how-to-play" class="text-white hover:text-apple-gray-200 transition-colors text-sm">How to Play</a>
+                </div>
+                <button class="md:hidden text-white focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="py-24 md:py-32 text-center bg-gradient-to-b from-cookie-brown-700 to-cookie-brown-900 text-white relative overflow-hidden">
+        <!-- Cookie particles in hero -->
+        <div class="absolute inset-0 z-0">
+            <div class="cookie" style="width: 30px; height: 30px; top: 20%; left: 10%;">
+                <div class="cookie-chip" style="width: 5px; height: 5px; top: 50%; left: 30%;"></div>
+            </div>
+            <div class="cookie" style="width: 40px; height: 40px; top: 70%; left: 85%;">
+                <div class="cookie-chip" style="width: 6px; height: 6px; top: 30%; left: 60%;"></div>
+            </div>
+            <div class="cookie" style="width: 25px; height: 25px; top: 40%; left: 25%;">
+                <div class="cookie-chip" style="width: 4px; height: 4px; top: 40%; left: 40%;"></div>
+            </div>
+            <div class="cookie" style="width: 35px; height: 35px; top: 80%; left: 40%;">
+                <div class="cookie-chip" style="width: 5px; height: 5px; top: 60%; left: 20%;"></div>
+            </div>
+            <div class="cookie" style="width: 20px; height: 20px; top: 30%; left: 60%;">
+                <div class="cookie-chip" style="width: 3px; height: 3px; top: 45%; left: 55%;"></div>
+            </div>
+            <div class="cookie" style="width: 45px; height: 45px; top: 60%; left: 75%;">
+                <div class="cookie-chip" style="width: 7px; height: 7px; top: 35%; left: 45%;"></div>
+            </div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="animate__animated animate__fadeIn animate__slower">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 hero-text leading-tight text-shadow">Cookie Monster</h1>
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto font-light hero-text opacity-90 mb-8">Indulge your sweet tooth in this deliciously addictive cookie-collecting adventure!</p>
+                <a href="#game" class="inline-block bg-apple-blue hover:bg-blue-600 text-white font-medium rounded-full px-10 py-4 transition-colors hero-text btn-glow shadow-lg">Play Now</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16 max-w-6xl relative z-10">
+        <!-- Game Section -->
+        <section id="game" class="mb-24 animate__animated animate__fadeInUp animate__delay-1s">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-cookie-brown-100 text-cookie-brown-600 px-4 py-1 rounded-full text-sm font-medium mb-3">Deliciously Fun</span>
+                <h2 class="text-3xl md:text-4xl font-semibold text-apple-gray-800 mb-3"><span class="text-gradient">Play Cookie Monster</span></h2>
+                <p class="text-apple-gray-400 max-w-3xl mx-auto">Match cookies, set high scores, and satisfy your craving for fun!</p>
+            </div>
+            
+            <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-cookie-brown-200">
+                <div class="game-container min-h-[600px] flex justify-center items-center p-6 game-frame cookie-filter">
+                    <iframe src="https://cdn.htmlgames.com/CookieMonster/" class="w-full h-full min-h-[600px] border-0"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section id="about" class="mb-24 animate__animated animate__fadeIn animate__delay-2s">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-cookie-brown-100 text-cookie-brown-600 px-4 py-1 rounded-full text-sm font-medium mb-3">Why You'll Love It</span>
+                <h2 class="text-3xl md:text-4xl font-semibold text-apple-gray-800 mb-3"><span class="text-gradient">Game Features</span></h2>
+                <p class="text-apple-gray-400 max-w-3xl mx-auto">Discover what makes Cookie Monster an irresistible gaming experience.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 hover-lift cookie-card">
+                    <div class="w-12 h-12 bg-cookie-brown-300/30 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#B08744" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-apple-gray-800 mb-3">Challenging Gameplay</h3>
+                    <p class="text-apple-gray-400">Test your matching skills with increasingly difficult levels that will keep you engaged for hours.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 hover-lift cookie-card">
+                    <div class="w-12 h-12 bg-cookie-brown-300/30 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#B08744" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-apple-gray-800 mb-3">Delicious Visuals</h3>
+                    <p class="text-apple-gray-400">Enjoy mouthwatering cookie designs and vibrant animations that bring the game to life.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 hover-lift cookie-card">
+                    <div class="w-12 h-12 bg-cookie-brown-300/30 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#B08744" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-apple-gray-800 mb-3">Score Tracking</h3>
+                    <p class="text-apple-gray-400">Track your high scores and challenge yourself to beat your personal best with each play.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 hover-lift cookie-card">
+                    <div class="w-12 h-12 bg-cookie-brown-300/30 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#B08744" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-apple-gray-800 mb-3">Quick Play Sessions</h3>
+                    <p class="text-apple-gray-400">Perfect for short breaks or longer gaming sessions, play at your own pace whenever you want.</p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 hover-lift cookie-card">
+                    <div class="w-12 h-12 bg-cookie-brown-300/30 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#B08744" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-apple-gray-800 mb-3">Instant Play</h3>
+                    <p class="text-apple-gray-400">No downloads required - play directly in your browser on any device with no installation necessary.</p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 hover-lift cookie-card">
+                    <div class="w-12 h-12 bg-cookie-brown-300/30 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#B08744" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-apple-gray-800 mb-3">Brain Training</h3>
+                    <p class="text-apple-gray-400">Improve your pattern recognition and strategic thinking while having fun with delicious cookies.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Play Section -->
+        <section id="how-to-play" class="mb-24 animate__animated animate__fadeIn animate__delay-3s">
+            <div class="text-center mb-16">
+                <span class="inline-block bg-cookie-brown-100 text-cookie-brown-600 px-4 py-1 rounded-full text-sm font-medium mb-3">Game Instructions</span>
+                <h2 class="text-3xl md:text-4xl font-semibold text-apple-gray-800 mb-3"><span class="text-gradient">How to Play</span></h2>
+                <p class="text-apple-gray-400 max-w-3xl mx-auto">Master the game with these simple instructions.</p>
+            </div>
+            
+            <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-cookie-brown-200">
+                <div class="p-8 md:p-12">
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-cookie-brown-300/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <span class="text-3xl font-bold text-cookie-brown-500">1</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-apple-gray-800 mb-3">Match Cookies</h3>
+                            <p class="text-apple-gray-400">Find and connect matching cookie pairs to remove them from the board.</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-cookie-brown-300/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <span class="text-3xl font-bold text-cookie-brown-500">2</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-apple-gray-800 mb-3">Clear the Board</h3>
+                            <p class="text-apple-gray-400">Plan your moves strategically to clear all cookies before the timer runs out.</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-cookie-brown-300/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <span class="text-3xl font-bold text-cookie-brown-500">3</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-apple-gray-800 mb-3">Level Up</h3>
+                            <p class="text-apple-gray-400">Progress through increasingly challenging levels with new cookie patterns and obstacles.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 text-center">
+                        <p class="text-apple-gray-600 mb-8 italic">Remember, cookies can only be matched if they have at least one side free or are on top of the pile. Plan your moves carefully to avoid getting stuck!</p>
+                        <a href="#game" class="inline-block bg-apple-blue hover:bg-blue-600 text-white font-medium rounded-full px-8 py-3 transition-colors btn-glow">Start Playing Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <section class="bg-gradient-to-r from-cookie-brown-700 to-cookie-brown-900 text-white rounded-2xl overflow-hidden mb-24 animate__animated animate__pulse animate__slower animate__infinite">
+            <div class="p-8 md:p-12 text-center">
+                <h2 class="text-3xl md:text-4xl font-semibold mb-4">Ready for a Sweet Challenge?</h2>
+                <p class="text-xl opacity-90 max-w-2xl mx-auto mb-8">Satisfy your cookie cravings with this deliciously addictive game. Can you clear all the levels?</p>
+                <a href="#game" class="inline-block bg-apple-blue hover:bg-blue-600 text-white font-medium rounded-full px-8 py-3 transition-colors btn-glow">Play Cookie Monster Now</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-apple-gray-800 text-white pt-16 pb-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-4 gap-8 mb-12">
+                    <div class="md:col-span-2">
+                        <h3 class="text-2xl font-semibold mb-4">Cookie Monster</h3>
+                        <p class="text-apple-gray-300 mb-6 max-w-md">A delicious cookie-collecting adventure game that will satisfy your sweet tooth and challenge your mind.</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-medium mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#game" class="text-apple-gray-300 hover:text-white transition-colors">Play Game</a></li>
+                            <li><a href="#about" class="text-apple-gray-300 hover:text-white transition-colors">Features</a></li>
+                            <li><a href="#how-to-play" class="text-apple-gray-300 hover:text-white transition-colors">How to Play</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-medium mb-4">Legal</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-apple-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+                            <li><a href="#" class="text-apple-gray-300 hover:text-white transition-colors">Terms of Service</a></li>
+                            <li><a href="#" class="text-apple-gray-300 hover:text-white transition-colors">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-apple-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-apple-gray-300 text-sm">&copy; 2025 cookiesuperman.shop. All rights reserved.</p>
+                    <div class="mt-4 md:mt-0">
+                        <p class="text-apple-gray-300 text-sm">Designed with ❤️ for cookie lovers everywhere</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
